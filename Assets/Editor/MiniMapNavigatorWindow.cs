@@ -17,19 +17,16 @@ namespace mjayjinad
         private const float mapWidth = 256f;
         private const float mapHeight = 256f;
         private const float margin = 10f;
+        private bool smoothMove = true; // Enable smooth camera transition
+        private float flyTime = 0.3f; // Duration of smooth camera fly-to
+        private float paddingFactor = 2f; // Extra padding around model when framing
+        private bool isEnabled = false; // Toggle mini-map overlay on/off
+        private GameObject targetModel; // The GameObject the mini-map focuses on
+        private Camera mapCamera; // Hidden camera rendering the top-down view
+        private RenderTexture mapTexture; // RenderTexture holding the mini-map image
+        private Bounds modelBounds; // Cached bounds of the target model
 
-        private bool smoothMove = true;     // Enable smooth camera transition
-        private float flyTime = 0.3f;       // Duration of smooth camera fly-to
-        private float paddingFactor = 2f;   // Extra padding around model when framing
-        private bool isEnabled = false;     // Toggle mini-map overlay on/off
-
-        private GameObject targetModel;     // The GameObject the mini-map focuses on
-
-        private Camera mapCamera;           // Hidden camera rendering the top-down view
-        private RenderTexture mapTexture;   // RenderTexture holding the mini-map image
-        private Bounds modelBounds;         // Cached bounds of the target model
-
-        // State for camera fly-to animation
+        // variables for camera smoooth animation
         private bool isDragging = false;
         private Vector3 flyStartPos;
         private Vector3 flyEndPos;
@@ -38,7 +35,7 @@ namespace mjayjinad
         /// <summary>
         /// Adds a menu item under Tools to open the MiniMap Navigator Window.
         /// </summary>
-        [MenuItem("Tools/MiniMap Navigator")]
+        [MenuItem("Tools/mjayjinad/MiniMap Navigator")]
         public static void OpenWindow()
         {
             var win = GetWindow<MiniMapNavigatorWindow>("MiniMap Navigator");
